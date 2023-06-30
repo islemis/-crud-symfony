@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        .product-name {
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .product-reference {
+            font-size: 12px;
+        }
+
+        .product-price {
+            font-size: 24px;
+        }
+.art{
+margin-bottom:50px ;
+}
+        .product-description {
+            margin-top: 40px;
+        }
+
+        .add-to-cart-button {
+            background-color: #f6d9c1;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-4 art" >
+  <div class="row justify-content-center acticle">
+    <div class="col-lg-4">
+      {% if produit.getPhoto() %}
+        <img src="../../images/{{ produit.getPhoto() }}" alt="Product Photo" class="img-fluid">
+      {% endif %}
+    </div>
+    <div class="col-lg-8">
+      <div>
+      <h1 class="h1 product-single__title"> {{ produit.getMarque() }} {{ produit.getName() }} </h1>
+        <h1 class="product-name"></h1>
+        <p class="product-reference">Reference: {{ produit.getReference() }}</p>
+        <p class="product-price">  {{ produit.getPrice() }} TND </p>
+<form  action="{{ path('app_add', {'id': produit.getId()}) }}">
+
+        <button class="add-to-cart-button" type="submit">Add to Cart</button>
+        </form>
+      </div>
+      <div class="product-description">
+      <h4>description</h4>
+        <p> {{ produit.getDescription() }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

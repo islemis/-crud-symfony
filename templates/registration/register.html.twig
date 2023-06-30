@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block stylesheets %}
+    {# Load Bootstrap CSS #}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <style>
+        /* Custom styles for registration form */
+        body {
+            background-color: #fdfdfd;
+        }
+        .registration-form {
+            margin-bottom: 100px;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .card-header {
+            background-color: #f7f7f7;
+            border-radius: 10px 10px 0 0;
+            border-bottom: none;
+        }
+    
+        .form-signin input[type="password"] {
+            border: none;
+            border-radius: 0;
+            border-bottom: 1px solid #ccc;
+            box-shadow: none;
+             
+        }
+        #registration_form_email{
+               border: none;
+            border-radius: 0;
+            border-bottom: 1px solid #ccc;
+            box-shadow: none;
+        }
+        .form-signin input[type="email"]:focus,
+        .form-signin input[type="password"]:focus {
+            box-shadow: none;
+            border-bottom: 1px solid #fec68d;
+        }
+        .form-signin label {
+            color: #999;
+        }
+        .form-signin button[type="submit"] {
+            background-color: #f6d9c1;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            display: block;
+            margin: 20px auto;
+            width: 50%;
+        }
+     
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center registration-form">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="h3 mb-3 font-weight-normal text-center">Register</h1>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(registrationForm, {'attr': {'class': 'form-signin'}}) }}
+                            <div class="form-group" >
+                                {{ form_label(registrationForm.email, 'Email') }}
+                                {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(registrationForm.plainPassword, 'Password') }}
+                                {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                            <div class="form-group form-check">
+                                {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                                {{ form_label(registrationForm.agreeTerms, 'I agree to the terms and conditions', {'label_attr': {'class': 'form-check-label'}}) }}
+                            </div>
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+                        {{ form_end(registrationForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

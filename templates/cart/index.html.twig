@@ -1,0 +1,164 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        /* Add your custom styles here */
+        .container {
+            margin-top: 50px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+.max,.min {
+    background-color:#f6d9c1;
+    border : none ;
+    color : white ; 
+    
+}
+.max:hover ,.min:hover {
+    background-color:#f6d9c1  ;
+}
+.panier{
+    margin-top:5px;
+}
+        table {
+            width: 100%;
+            margin-bottom: 100px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: white;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color:white;
+        }
+
+        tfoot {
+            font-weight: bold;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .empty-cart {
+            text-align: center;
+        }
+
+        .empty-cart p {
+            font-size: 18px;
+            color: #888;
+        }
+
+        .back-to-home {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-to-home a {
+            text-decoration: none;
+            color :black ;
+            font-weight: bold;
+        }
+
+        /* Custom styles for image display */
+        .product-image {
+            height: auto;
+            max-width: 300px;
+            max-height: 200px;
+            margin: 0 auto;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container panier" >
+        <h1>Cart</h1>
+        {% if items|length > 0 %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th> </th>
+                        <th> </th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th> Total Price</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>
+                                {% if item.photo %}
+                                    <img src="images/{{ item.photo }}" width="100" alt="Product Image" class="product-image">
+                                {% endif %}
+                            </td>
+                            <td>{{ item.name }}</td>
+                            <td >
+                                        <button  class="btn btn-sm btn-primary max" onclick="updateQuantity('{{ item.id }}', 'decrement')">-</button>
+                                        {{ item.quantity }}
+                                        <button  class="btn btn-sm btn-primary min" onclick="updateQuantity('{{ item.id }}', 'increment')">+</button>
+                                    </td>
+                            <td>{{ item.price  }}</td>
+                            <td>{{ item.price * item.quantity }}</td>
+                            <td>
+                            <a href="{{ path('remove_from_cart', { 'id': item.id }) }}"  >
+                                                <i class="fas fa-trash" style="color:#f6d9c1;"></i> 
+                            </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-right">Total:</td>
+                        <td>{{ total }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        {% else %}
+            <div class="empty-cart">
+                <p>Empty Cart !</p>
+            </div>
+        {% endif %}
+    </div>
+    <div class="back-to-home">
+        <p><a href="/" >Back to shopping</a></p>
+    </div>
+    <script>
+
+        function updateQuantity(productId, action) {
+            const url = '{{ path('update_cart_quantity') }}';
+            const formData = new FormData();
+            formData.append('product_id', productId);
+            formData.append('action', action);
+
+            fetch(url, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Reload the cart page after successful update
+                    location.reload();
+                } else {
+                    console.log(data.message);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }
+    </script>
+{% endblock %}

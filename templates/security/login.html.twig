@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block stylesheets %}
+    {# Load Bootstrap CSS #}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <style>
+        /* Custom styles for login form */
+        body {
+            background-color: #fdfdfd;
+        }
+.signin       {
+            margin-bottom:100px ;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .card-header {
+            background-color: #f7f7f7;
+            border-radius: 10px 10px 0 0;
+            border-bottom: none;
+        }
+        .form-signin input[type="email"],
+        .form-signin input[type="password"] {
+            border: none;
+            border-radius: 0;
+            border-bottom: 1px solid #ccc;
+            box-shadow: none;
+        }
+        .form-signin input[type="email"]:focus,
+        .form-signin input[type="password"]:focus {
+            box-shadow: none;
+            border-bottom: 1px solid #fec68d;
+        }
+        .form-signin label {
+            color: #999;
+        }
+        .form-signin button[type="submit"] {
+            background-color: #f6d9c1;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            display: block;
+            margin: 20px auto;
+            width: 50%;
+        }
+        .form-signin button[type="submit"]:hover {
+           
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center signin">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="h3 mb-3 font-weight-normal text-center">Sign In</h1>
+                    </div>
+                    <div class="card-body">
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+
+                        <form method="post" class="form-signin">
+                            <div class="form-group">
+                                <label for="inputEmail">Email</label>
+                                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword">Password</label>
+                                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                            </div>
+
+                            <input type="hidden" name="_csrf_token"
+                                   value="{{ csrf_token('authenticate') }}"
+                            >
+
+                            {# Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                            See https://symfony.com/doc/current/security/remember_me.html #}
+                            {# <div class="form-group form-check">
+                                <input type="checkbox" name="_remember_me" id="rememberMe" class="form-check-input">
+                                <label for="rememberMe" class="form-check-label">Remember me</label>
+                            </div> #}
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+
+                        </form>
+
+                        Not registred?  <a style="color: black ;" href="{{path('app_register')}}">    Register now </a> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

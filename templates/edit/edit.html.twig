@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+
+
+
+{% block stylesheets %}
+    
+    <style>
+        .example-wrapper {
+            margin: 50px auto;
+            max-width: 500px;
+            padding: 20px;
+            background-color: #f6d9c1;
+            border-radius: 5px;
+        }
+
+        .example-wrapper h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .example-wrapper label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .example-wrapper input[type="text"],
+        .example-wrapper textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .example-wrapper button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+    
+{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <h1>Mettre à jour le produit "{{ produit.getName() }}"</h1>
+        {{ form_start(form) }}
+        {{ form_row(form.nom) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.reference) }}
+        {{ form_row(form.marque) }}
+        {{ form_row(form.prix) }}
+        {{ form_row(form.photo) }}
+        <button type="submit" class="btn btn-primary">Mettre à jour</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

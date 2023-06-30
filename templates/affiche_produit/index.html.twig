@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Boutique!{% endblock %}
+{% block stylesheets %}
+    <style>
+        /* Add your custom styles here */
+   .card{
+    border:none  !important ;
+   }
+
+   .centered-div {
+  display: flex;
+  justify-content: center;
+ 
+}
+
+
+   .found{
+margin-left:550px;
+   }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row">
+
+            {% for article in articles %}
+            
+
+                <div class="col-md-4 mb-3">
+            
+              <div class="card produit">
+              <a href="{{ path('app_show', {'id': article.id}) }}"> 
+                <img class="card-img-top" src="images/{{ article.photo }}" alt="{{ article.name }}" style="height: 290px; width:290px; object-fit: cover; ">
+                </a>
+                <div class="card-body" style="margin-right:70px;">
+                  <h2 class="card-title text-center"  > {{ article.marque }} {{ article.name }}</h2>
+                  <p class="card-text text-center prix" >{{ article.price }} <span>TND</span></p>
+                   {% if app.user %}
+                  <div class="icons">
+
+                 
+                    <a style="color:white;" href="{{ path('edit_product', {'id': article.id}) }}" class="d-inline">
+                      
+                      <i class="fas fa-edit"  style="color:#f6d9c1; margin-left:20px ;"></i>
+                    </a>
+
+
+                     <a   href="{{ path('produit_delete', {'id': article.id}) }}" class="d-inline">
+                      
+                      <i class="fas fa-trash"  style="color:#f6d9c1; margin-left:20px ;"></i>
+                    </a>
+                  </div>
+                     {% endif %}
+
+                </div>
+              </div>
+            </a>
+          </div>
+
+
+                    {% else %}
+
+<div class="centered-div" >
+                 No products found  
+              
+                 
+                    <a  href="/"   style="color:black;    font-weight:bold; text-decoration:none; margin-left:40px; ">Return to products list</a>
+
+</div>
+
+
+                
+            {% endfor %}
+
+              
+        </div>
+       
+    </div>
+
+{% endblock %}

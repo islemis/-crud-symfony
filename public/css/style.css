@@ -1,0 +1,23 @@
+.produit {
+  border: 2px !important;
+}
+
+.filter-input-group {
+  margin-left: 400px;
+  margin-bottom: 80px;
+}
+.header-icons a i {
+  color: white;
+}
+.banner {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: block;
+  padding: 7px 20px 6px;
+  transition: opacity 0.75s ease;
+  text-align: center;
+}
+.acticle{
+    margin-left: 300px;
+}

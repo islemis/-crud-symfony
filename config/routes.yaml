@@ -1,0 +1,24 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+prod:
+  path: /prod_add
+  controller: App\Controller\ProduitController::index
+prod_display:
+  path: /
+  controller: App\Controller\AfficheProduitController::index
+produit_delete:
+  path: '/produit/{id}/delete'
+  controller: App\Controller\AfficheProduitController::delete
+edit_product:
+  path: '/edit/{id}'
+  controller: App\Controller\EditController::edit
+app_add:
+  path: /add/{id}
+  controller: App\Controller\CartController::add
+app_login:
+  path: /login
+  controller: App\Controller\SecurityController::login
+app_show:
+  path: /show/{id}
+  controller: App\Controller\ArticleController::show
